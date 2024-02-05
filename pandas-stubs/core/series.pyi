@@ -1782,7 +1782,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def pow(
         self,
-        other: num | _ListLike | Series[S1],
+        other: num | _ListLike,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
