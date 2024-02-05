@@ -574,29 +574,28 @@ def test_types_element_wise_arithmetic() -> None:
 def test_types_scalar_arithmetic() -> None:
     s = pd.Series([0, 1, -10])
 
-    res_add1: pd.Series = s + 1
-    res_add2: pd.Series = s.add(1, fill_value=0)
+    check(assert_type(s + 1, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s.add(1, fill_value=0), "pd.Series[int]"), pd.Series, np.int_)
 
-    res_sub: pd.Series = s - 1
-    res_sub2: pd.Series = s.sub(1, fill_value=0)
+    check(assert_type(s - 1, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s.sub(1, fill_value=0), "pd.Series[int]"), pd.Series, np.int_)
 
-    res_mul: pd.Series = s * 2
-    res_mul2: pd.Series = s.mul(2, fill_value=0)
+    check(assert_type(s * 2, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s.mul(2, fill_value=0), "pd.Series[int]"), pd.Series, np.int_)
 
-    res_div: pd.Series = s / 2
-    res_div2: pd.Series = s.div(2, fill_value=0)
+    check(assert_type(s / 2, "pd.Series"), pd.Series, np.float_)
+    check(assert_type(s.div(2, fill_value=0), "pd.Series[float]"), pd.Series, np.float_)
 
-    res_floordiv: pd.Series = s // 2
-    res_floordiv2: pd.Series = s.floordiv(2, fill_value=0)
+    check(assert_type(s // 2, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s.floordiv(2, fill_value=0), "pd.Series[int]"), pd.Series, np.int_)
 
-    res_mod: pd.Series = s % 2
-    res_mod2: pd.Series = s.mod(2, fill_value=0)
+    check(assert_type(s % 2, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s.mod(2, fill_value=0), "pd.Series[int]"), pd.Series, np.int_)
 
-    res_pow: pd.Series = s**2
-    res_pow1: pd.Series = s**0
-    res_pow2: pd.Series = s**0.213
-    res_pow3: pd.Series = s.pow(0.5)
-
+    check(assert_type(s ** 2, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s ** 0, "pd.Series[int]"), pd.Series, np.int_)
+    check(assert_type(s ** 0.213, "pd.Series"), pd.Series, np.float64)
+    check(assert_type(s.pow(0.5), "pd.Series"), pd.Series, np.float64)
 
 # GH 103
 def test_types_complex_arithmetic() -> None:

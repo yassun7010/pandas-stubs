@@ -1498,7 +1498,10 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __mul__(self, other: num | _ListLike | Series) -> Series: ...
     def __mod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __ne__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __pow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    @overload
+    def __pow__(self, other: int | Series[int] | Self) -> Self: ...
+    @overload
+    def __pow__(self, other: num | _ListLike) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __or__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -1768,13 +1771,22 @@ class Series(IndexOpsMixin[S1], NDFrame):
         axis: AxisIndex = ...,
     ) -> Series[_bool]: ...
     def nunique(self, dropna: _bool = ...) -> int: ...
+    @overload
+    def pow(
+        self,
+        other: int | Series[int] | Self,
+        level: Level | None = ...,
+        fill_value: float | None = ...,
+        axis: AxisIndex | None = ...,
+    ) -> Self: ...
+    @overload
     def pow(
         self,
         other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
-    ) -> Series[S1]: ...
+    ) -> Series: ...
     def prod(
         self,
         axis: AxisIndex | None = ...,
