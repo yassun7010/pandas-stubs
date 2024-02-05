@@ -1501,7 +1501,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __pow__(self, other: int | Series[int] | Self) -> Self: ...
     @overload
-    def __pow__(self, other: num | _ListLike) -> Series: ...
+    def __pow__(self, other: num | _ListLike | Series) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __or__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -1782,7 +1782,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def pow(
         self,
-        other: num | _ListLike,
+        other: num | _ListLike | Series,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
